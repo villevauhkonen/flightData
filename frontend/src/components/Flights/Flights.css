@@ -1,0 +1,7 @@
+.panel {
+  margin: auto;
+  width: 60vw;
+  background: rgb(255, 255, 255);
+  height: 90vh;
+  position: relative;
+}

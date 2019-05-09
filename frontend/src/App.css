@@ -1,0 +1,22 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.header {
+  width: 100vw;
+  height: 10vh;
+  background: #211a58;
+  border-bottom: 5px solid #e47400;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+
+.main{
+  width: 100vw;
+  height: 90vh;
+  background: rgb(255, 255, 255);
+}

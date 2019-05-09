@@ -1,0 +1,16 @@
+.headerButton {
+  width: 100px;
+  height: 20px;
+  border: 2px solid #e47400;
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  margin-right: 20px;
+  text-align: center;
+  line-height: 20px;
+  user-select: none;
+}
+
+.headerButton:hover {
+  background-color: rgba(255, 255, 255, 0.103)
+}
