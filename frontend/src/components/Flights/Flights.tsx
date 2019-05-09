@@ -4,6 +4,8 @@ import { Flight } from '../../Models/Flight';
 import FlightMenu from './FlightMenu'
 import './Flights.css'
 import { GetRequest } from '../../Services/Api'
+import { FlightItem } from './FlightItem';
+import FlightItemHeader from './FlightItemHeader';
 
 export interface IFlightProps {
 }
@@ -18,8 +20,13 @@ export default class Flights extends React.Component<IFlightProps, any> {
       queryData: '',
       flightData: [],
       error: false,
-      loading: false
+      loading: false,
+      sortDirection: true
     }
+  }
+
+  componentDidMount() {
+    this.getData()
   }
 
   triggerRequest = () => {
@@ -54,8 +61,17 @@ export default class Flights extends React.Component<IFlightProps, any> {
   }
 
   renderFlights = () => {
-    const res = this.state.flightData.map((flight: Flight, index: number) => (<li key={index}>{flight.flightCode}</li>))
+    const res = this.state.flightData.map((flight: Flight, index: number) => (<FlightItem key={index} flight={flight} />))
     return res
+  }
+
+  sortData = (selector: string) => {
+    const dir = this.state.sortDirection ? [1, -1] : [-1, 1]
+    const result = this.state.flightData.sort((a: any, b: any) => (a[selector] > b[selector]) ? dir[0] : dir[1])
+    this.setState({
+      flightData: result,
+      sortDirection: !this.state.sortDirection
+    })
   }
 
   public render() {
@@ -64,6 +80,14 @@ export default class Flights extends React.Component<IFlightProps, any> {
         <FlightMenu
           updateQuery={this.updateQuery}
         />
+        {this.state.flightData.length > 0 &&
+          <FlightItemHeader
+            sortData={this.sortData}
+          />
+        }
+        <div className="results">
+          {this.renderFlights()}
+        </div>
       </div>
     );
   }

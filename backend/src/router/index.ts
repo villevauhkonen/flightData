@@ -23,8 +23,8 @@ router.get('/flights', (req: Request, res: Response) => {
     .filter((flight: Flight) => flightCode === undefined || flight.flightCode == flightCode)
     .filter((flight: Flight) => arrStation === undefined || flight.arrStation == arrStation)
     .filter((flight: Flight) => depStation === undefined || flight.depStation == depStation)
-    .filter((flight: Flight) => req.query.arrDate === undefined || Math.abs(new Date(flight.arrDateTime).getTime() - arrDate.getTime()) < timeRange)
-    .filter((flight: Flight) => req.query.depDate === undefined || Math.abs(new Date(flight.depDateTime).getTime() - depDate.getTime()) < timeRange)
+    .filter((flight: Flight) => req.query.arrDate === undefined || new Date(flight.arrDateTime) > arrDate && new Date(arrDate.setHours(23, 59, 59)) > new Date(flight.arrDateTime))
+    .filter((flight: Flight) => req.query.depDate === undefined || new Date(flight.depDateTime) > depDate && new Date(depDate.setHours(23, 59, 59)) > new Date(flight.depDateTime))
 
   res.send(filteredFlightData)
 })

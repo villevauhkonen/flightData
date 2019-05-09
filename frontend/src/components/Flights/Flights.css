@@ -5,3 +5,10 @@
   height: 90vh;
   position: relative;
 }
+
+.results {
+  margin-top: 20px;
+  height: 90vh;
+  width: 60vw;
+  overflow: auto;
+}

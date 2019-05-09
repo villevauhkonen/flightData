@@ -48,12 +48,12 @@ export default class FlightMenu extends React.Component<IFlightMenuProps, any> {
         </div>
 
         <div className="inputElement">
-          <p className="label">DEPARTURE AIRPORT</p>
+          <p className="label">DEPARTURE STATION</p>
           <input className="textInput" type="text" name="depStation" value={this.state.depAirport} onChange={this.setStateValue} />
         </div>
 
         <div className="inputElement">
-          <p className="label">ARRIVAL AIRPORT</p>
+          <p className="label">ARRIVAL STATION</p>
           <input className="textInput" type="text" name="arrStation" value={this.state.arrAirport} onChange={this.setStateValue} />
         </div>
 

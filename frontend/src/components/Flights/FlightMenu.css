@@ -1,7 +1,7 @@
 .flightMenuContainer {
   background-color: #211a58;
   height: 80px;
-  position: absolute;
+  margin-top: 20px;
   width: 60vw;
   top: 20px;
   border-bottom: 5px solid #e47400;
