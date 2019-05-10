@@ -1,9 +1,10 @@
 import express, { Router, Request, Response } from 'express'
 import { flightData } from '../data/flights'
-import { Flight } from '../Models/Flight';
+import { Flight } from '../Models/Flight'
 import { bookingData } from '../data/bookings'
 import { Booking } from '../Models/Booking'
-import { BookingResult } from '../Models/BookingResult';
+import { BookingResult } from '../Models/BookingResult'
+import addDays from 'date-fns/addDays'
 
 const router: Router = express.Router()
 
@@ -13,18 +14,14 @@ router.get('/flights', (req: Request, res: Response) => {
   const depStation = req.query.depStation
   const arrDate = new Date(req.query.arrDate) || undefined
   const depDate = new Date(req.query.depDate) || undefined
-
-  //Search flight times from nearest +-2 hours
-  const timeRange = 7200 * 1000
-
   const rawFlightData = flightData
 
   const filteredFlightData = rawFlightData
     .filter((flight: Flight) => flightCode === undefined || flight.flightCode == flightCode)
     .filter((flight: Flight) => arrStation === undefined || flight.arrStation == arrStation)
     .filter((flight: Flight) => depStation === undefined || flight.depStation == depStation)
-    .filter((flight: Flight) => req.query.arrDate === undefined || new Date(flight.arrDateTime) > arrDate && new Date(arrDate.setHours(23, 59, 59)) > new Date(flight.arrDateTime))
-    .filter((flight: Flight) => req.query.depDate === undefined || new Date(flight.depDateTime) > depDate && new Date(depDate.setHours(23, 59, 59)) > new Date(flight.depDateTime))
+    .filter((flight: Flight) => req.query.arrDate === undefined || new Date(flight.arrDateTime) > arrDate && addDays(arrDate, 1) > new Date(flight.arrDateTime))
+    .filter((flight: Flight) => req.query.depDate === undefined || new Date(flight.depDateTime) > depDate && addDays(depDate, 1) > new Date(flight.depDateTime))
 
   res.send(filteredFlightData)
 })

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './FlightMenu.css'
 import DatePicker from 'react-date-picker';
-import { QueryObject } from '../../Models/QueryObject';
+import { QueryObject } from '../../../Models/QueryObject';
 
 export interface IFlightMenuProps {
   updateQuery: (queryObject: QueryObject) => void
@@ -26,13 +26,13 @@ export default class FlightMenu extends React.Component<IFlightMenuProps, any> {
 
   }
 
-  setDepartureTime = (date: any) => {
+  setDepartureDate = (date: any) => {
     this.setState({
       depDate: date
     }, () => this.props.updateQuery(this.state as QueryObject))
   }
 
-  setArrivalTime = (date: any) => {
+  setArrivalDate = (date: any) => {
     this.setState({
       arrDate: date
     }, () => this.props.updateQuery(this.state as QueryObject))
@@ -62,7 +62,7 @@ export default class FlightMenu extends React.Component<IFlightMenuProps, any> {
           <DatePicker
             className="input"
             locale="fi-FI"
-            onChange={this.setDepartureTime}
+            onChange={this.setDepartureDate}
             value={this.state.depDate}
           />
         </div>
@@ -72,7 +72,7 @@ export default class FlightMenu extends React.Component<IFlightMenuProps, any> {
           <DatePicker
             className="input"
             locale="fi-FI"
-            onChange={this.setArrivalTime}
+            onChange={this.setArrivalDate}
             value={this.state.arrDate}
           />
         </div>

@@ -14,16 +14,16 @@ export default class FlightItemHeader extends React.Component<IFlightItemHeaderP
           FLIGHT CODE
         </div>
         <div className="headerColumn" onClick={e => this.props.sortData('depStation')}>
-          DEPARTURE STATION
+          DEP STATION
         </div>
         <div className="headerColumn" onClick={e => this.props.sortData('arrStation')}>
-          ARRIVAL STATION
+          ARR STATION
         </div>
-        <div className="headerColumn" onClick={e => this.props.sortData('depDate')}>
-          DEPARTURE TIME
+        <div className="headerColumn" onClick={e => this.props.sortData('depDateTime')}>
+          DEP TIME
         </div>
-        <div className="headerColumn" onClick={e => this.props.sortData('arrDate')}>
-          ARRIVAL TIME
+        <div className="headerColumn" onClick={e => this.props.sortData('arrDateTime')}>
+          ARR TIME
         </div>
         <div className="headerColumn">
           DURATION

@@ -1,0 +1,21 @@
+.row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  background: #211a58;
+  margin-bottom: 10px;
+  height: 40px;
+  padding: 10px;
+  color: white;
+  font-size: x-large;
+  user-select: none;
+  font-weight: 700;
+}
+
+.column {
+  width: 20%;
+}
+
+.alert {
+  color: red;
+}

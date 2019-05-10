@@ -1,11 +1,13 @@
 import * as React from 'react';
 import qs from 'qs'
 import { Flight } from '../../Models/Flight';
-import FlightMenu from './FlightMenu'
+import FlightMenu from './FlightMenu/FlightMenu'
 import './Flights.css'
 import { GetRequest } from '../../Services/Api'
-import { FlightItem } from './FlightItem';
-import FlightItemHeader from './FlightItemHeader';
+import { FlightItem } from './FlightItem/FlightItem'
+import FlightItemHeader from './FlightItemHeader/FlightItemHeader'
+import { Loader } from '../Loader/Loader'
+import { sort, fakeDelay } from '../../utils/common'
 
 export interface IFlightProps {
 }
@@ -15,13 +17,13 @@ export default class Flights extends React.Component<IFlightProps, any> {
 
   constructor(props: IFlightProps) {
     super(props);
-
     this.state = {
       queryData: '',
       flightData: [],
       error: false,
       loading: false,
-      sortDirection: true
+      sortDirection: true,
+      searchMessage: ''
     }
   }
 
@@ -30,23 +32,27 @@ export default class Flights extends React.Component<IFlightProps, any> {
   }
 
   triggerRequest = () => {
-    this.setState({
-      loading: true
-    }, () => this.timeout = setTimeout(this.getData, 1000))
+    this.timeout = setTimeout(this.getData, 1000)
   }
 
   getData = async () => {
+    this.setState({
+      loading: true
+    })
+    await fakeDelay(2000)
     const response = await GetRequest('http://localhost:5000/flights?', qs.stringify(this.state.queryData))
     if (response.status === 200) {
       this.setState({
         flightData: response.data,
         error: false,
-        loading: false
+        loading: false,
+        searchMessage: 'NO SEARCH RESULTS, CHECK PARAMETERS!'
       })
     } else {
       this.setState({
         error: true,
-        loading: false
+        loading: false,
+        searchMessage: 'ERROR FETCHING DATA!'
       })
     }
   }
@@ -57,7 +63,6 @@ export default class Flights extends React.Component<IFlightProps, any> {
     this.setState({
       queryData: queryObject
     }, () => this.triggerRequest())
-
   }
 
   renderFlights = () => {
@@ -66,8 +71,7 @@ export default class Flights extends React.Component<IFlightProps, any> {
   }
 
   sortData = (selector: string) => {
-    const dir = this.state.sortDirection ? [1, -1] : [-1, 1]
-    const result = this.state.flightData.sort((a: any, b: any) => (a[selector] > b[selector]) ? dir[0] : dir[1])
+    const result = sort(this.state.flightData, selector, this.state.sortDirection)
     this.setState({
       flightData: result,
       sortDirection: !this.state.sortDirection
@@ -80,10 +84,14 @@ export default class Flights extends React.Component<IFlightProps, any> {
         <FlightMenu
           updateQuery={this.updateQuery}
         />
-        {this.state.flightData.length > 0 &&
+        {this.state.loading &&
+          <Loader />
+        }
+        {this.state.flightData.length > 0 ?
           <FlightItemHeader
             sortData={this.sortData}
-          />
+          /> :
+          <div>{this.state.searchMessage}</div>
         }
         <div className="results">
           {this.renderFlights()}

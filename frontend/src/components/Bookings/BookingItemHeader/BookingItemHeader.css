@@ -1,0 +1,18 @@
+.headerRow {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  background: #211a58;
+  margin-top: 10px;
+  height: 40px;
+  padding: 10px;
+  color: white;
+  font-size: large;
+  user-select: none;
+  font-weight: 700;
+}
+
+.headerColumn {
+  width: 19.7%;
+  
+}

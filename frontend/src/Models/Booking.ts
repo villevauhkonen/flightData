@@ -1,6 +1,6 @@
-export type Booking = {
-  bookingId: string
+export type BookingType = {
   flightCode: string
-  weight: number
-  volume: number
+  count: number
+  totalWeight: number
+  totalVolume: number
 }
