@@ -6,4 +6,4 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Frontend will run default on http://localhost:3000
+Backend will run default on http://localhost:5000
